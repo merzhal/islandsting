@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Key Panel</title>
+</head>
+
+<body>
+
+<h2>Key Generator</h2>
+
+<input id="days" placeholder="days">
+
+<button onclick="gen()">Generate Key</button>
+
+<button onclick="bulk()">Generate 10</button>
+
+<pre id="out"></pre>
+
+<script>
+
+const API="https://https://tsg-production.up.railway.app"
+const ADMIN="SUPERSECRETADMINKEY"
+
+function gen(){
+
+let days=document.getElementById("days").value
+
+fetch(`${API}/generate?admin=${ADMIN}&days=${days}`)
+.then(r=>r.json())
+.then(d=>{
+
+document.getElementById("out").innerText=d.key
+
+})
+
+}
+
+function bulk(){
+
+fetch(`${API}/generatebulk?admin=${ADMIN}&amount=10&days=30`)
+.then(r=>r.json())
+.then(d=>{
+
+document.getElementById("out").innerText=d.keys.join("\n")
+
+})
+
+}
+
+</script>
+
+</body>
+</html>
